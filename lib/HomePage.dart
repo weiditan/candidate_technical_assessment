@@ -12,6 +12,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Set<int> _setRandomIndex = Set();
+  List<Map> _setUser = List();
+
+  @override
+  void initState() {
+    super.initState();
+    _getData();
+  }
+
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -21,6 +30,7 @@ class _HomePageState extends State<HomePage> {
     // if failed,use refreshFailed()
     _getData();
     _refreshController.refreshCompleted();
+    _refreshController.loadComplete();
   }
 
   void _onLoading() async {
@@ -28,25 +38,17 @@ class _HomePageState extends State<HomePage> {
     await Future.delayed(Duration(milliseconds: 1000));
     // if failed,use loadFailed(),if no data return,use LoadNodata()
     _addData();
-    if (_setUser.length == 5) {
+    if (_setUser.length == listData.length) {
       _refreshController.loadNoData();
     } else {
       _refreshController.loadComplete();
     }
   }
 
-  Set<Map> _setUser = Set();
-
-  @override
-  void initState() {
-    super.initState();
-    _getData();
-  }
-
   void _getData() {
-    Set<int> _setRandomIndex = Set();
-    while (_setRandomIndex.length != listData.length) {
-      _setRandomIndex.add(Random().nextInt(listData.length - 1));
+    _setRandomIndex.clear();
+    while (_setRandomIndex.length != 5) {
+      _setRandomIndex.add(Random().nextInt(listData.length));
     }
 
     _setUser.clear();
@@ -55,14 +57,18 @@ class _HomePageState extends State<HomePage> {
       _setUser.add(listData[index]);
     }
 
+    _setUser.sort((b, a) {
+      return a['check-in'].compareTo(b['check-in']);
+    });
+
     setState(() {});
   }
 
   void _addData() {
-    _setUser.clear();
-
     for (Map user in listData) {
-      _setUser.add(user);
+      if (!_setUser.contains(user)) {
+        _setUser.add(user);
+      }
     }
 
     setState(() {});
@@ -105,7 +111,7 @@ class _HomePageState extends State<HomePage> {
               physics: BouncingScrollPhysics(),
               itemCount: _setUser.length,
               itemBuilder: (BuildContext context, int index) {
-                return _cardUser(_setUser.toList()[index]);
+                return _cardUser(_setUser[index]);
               })),
     );
   }
@@ -199,13 +205,37 @@ class _HomePageState extends State<HomePage> {
       } else {
         _result += " ago";
       }
-    }else{
-      _result = _endDate.difference(_startDate).inHours.toString();
+    } else {
+      int _hours = _endDate.difference(_startDate).inHours;
+      int _minutes = _endDate.difference(_startDate).inMinutes;
+      int _seconds = _endDate.difference(_startDate).inSeconds;
+
+      if (_hours != 0) {
+        _result = _hours.toString() + " hour";
+
+        if (_hours > 1) {
+          _result += "s ago";
+        } else {
+          _result += " ago";
+        }
+      } else if (_minutes != 0) {
+        _result = _minutes.toString() + " minute";
+
+        if (_minutes > 1) {
+          _result += "s ago";
+        } else {
+          _result += " ago";
+        }
+      } else {
+        _result = _seconds.toString() + " second";
+
+        if (_seconds > 1) {
+          _result += "s ago";
+        } else {
+          _result += " ago";
+        }
+      }
     }
-
-
-    print(
-        _years.toString() + " " + _months.toString() + " " + _days.toString());
 
     return _result;
   }
