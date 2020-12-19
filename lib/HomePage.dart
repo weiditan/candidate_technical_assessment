@@ -12,7 +12,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<String> items = ["1", "2", "3", "4", "5", "6", "7", "8"];
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -29,7 +28,7 @@ class _HomePageState extends State<HomePage> {
     await Future.delayed(Duration(milliseconds: 1000));
     // if failed,use loadFailed(),if no data return,use LoadNodata()
     _addData();
-    if (_setUser.length == listData.length) {
+    if (_setUser.length == 5) {
       _refreshController.loadNoData();
     } else {
       _refreshController.loadComplete();
@@ -46,14 +45,13 @@ class _HomePageState extends State<HomePage> {
 
   void _getData() {
     Set<int> _setRandomIndex = Set();
-    while (_setRandomIndex.length != 5) {
+    while (_setRandomIndex.length != listData.length) {
       _setRandomIndex.add(Random().nextInt(listData.length - 1));
     }
 
     _setUser.clear();
 
     for (int index in _setRandomIndex) {
-      print(index);
       _setUser.add(listData[index]);
     }
 
@@ -104,6 +102,7 @@ class _HomePageState extends State<HomePage> {
           onRefresh: _onRefresh,
           onLoading: _onLoading,
           child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               itemCount: _setUser.length,
               itemBuilder: (BuildContext context, int index) {
                 return _cardUser(_setUser.toList()[index]);
@@ -128,14 +127,86 @@ class _HomePageState extends State<HomePage> {
             ),
             subtitle: Padding(
               padding: EdgeInsets.only(bottom: 10),
-              child: Text(
-                user['phone'] + "\n" + user['check-in'],
-                style: TextStyle(fontSize: 18),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    user['phone'] + "\n" + user['check-in'],
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  Text(
+                    _diffDate(user['check-in']),
+                    style: TextStyle(fontSize: 18),
+                  )
+                ],
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  String _diffDate(String checkIn) {
+    DateTime _startDate = DateTime.parse(checkIn);
+    DateTime _endDate = DateTime.now();
+
+    int _years = _endDate.year - _startDate.year;
+    int _months = _endDate.month - _startDate.month;
+    int _days = _endDate.day - _startDate.day;
+
+    if (_days < 0) {
+      _months -= 1;
+      _days = _endDate
+          .difference(
+              DateTime(_endDate.year, _endDate.month - 1, _startDate.day))
+          .inDays;
+    }
+
+    if (_months < 0) {
+      _years -= 1;
+      _months += 12;
+    }
+
+    if (_months < 0) {
+      _years -= 1;
+      _months += 12;
+    }
+
+    String _result;
+
+    if (_years != 0) {
+      _result = _years.toString() + " year";
+
+      if (_years > 1) {
+        _result += "s ago";
+      } else {
+        _result += " ago";
+      }
+    } else if (_months != 0) {
+      _result = _months.toString() + " month";
+
+      if (_months > 1) {
+        _result += "s ago";
+      } else {
+        _result += " ago";
+      }
+    } else if (_days != 0) {
+      _result = _days.toString() + " day";
+
+      if (_days > 1) {
+        _result += "s ago";
+      } else {
+        _result += " ago";
+      }
+    }else{
+      _result = _endDate.difference(_startDate).inHours.toString();
+    }
+
+
+    print(
+        _years.toString() + " " + _months.toString() + " " + _days.toString());
+
+    return _result;
   }
 }
