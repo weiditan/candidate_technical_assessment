@@ -2,7 +2,7 @@
 
 In this technical assessment, you need to build a flutter application based
 on the storyline below.
-Your application must have the following:
+#### Your application must have the following:
 1. Display a list of 5 random contacts that is sorted based on the time. The time should be
 displayed in the format of “time ago” like 1 minute ago or 1 hour ago. The sorting should
 start from the most recent till the oldest time.
@@ -15,9 +15,9 @@ displays a message to inform the user that he/she has reached the end of the lis
 disabling the feature with a toggle option
 5. An action button that can allow the user to share the contact information to other
 installed applications on the mobile.
-Requirements:
+#### Requirements:
 1. Develop the APP using Flutter
 2. Each completed storyline is a plus.
 3. Track progress of the project via Git version control system.
 4. List down all the plugins that you used to build the app.
-Time to complete = 1 week
+<br><br>Time to complete = <b>1 week</b>
