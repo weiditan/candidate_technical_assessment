@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 import 'data.dart';
@@ -8,6 +10,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+
+    var rng = new Random();
+    for (var i = 0; i < 5; i++) {
+      print(rng.nextInt(listData.length-1));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           ListTile(
             leading: Icon(Icons.person, size: 60),
             title: Padding(
-              padding: EdgeInsets.only(top: 10,bottom: 10),
+              padding: EdgeInsets.only(top: 10, bottom: 10),
               child: Text(
                 user["user"],
                 style: TextStyle(fontSize: 20),
