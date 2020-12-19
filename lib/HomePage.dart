@@ -14,10 +14,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
 
-    var rng = new Random();
-    for (var i = 0; i < 5; i++) {
-      print(rng.nextInt(listData.length-1));
+    Set<int> setOfInts = Set();
+
+    while(setOfInts.length!=5){
+      setOfInts.add(Random().nextInt(listData.length-1));
     }
+    print(setOfInts);
   }
 
   @override
