@@ -125,35 +125,43 @@ class _HomePageState extends State<HomePage> {
   Widget _cardUser(Map user) {
     return Card(
       margin: EdgeInsets.only(left: 15, right: 15, top: 15),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+      child: Row(
         children: <Widget>[
-          ListTile(
-            leading: Icon(Icons.person, size: 60),
-            title: Padding(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
-              child: Text(
-                user["user"],
-                style: TextStyle(fontSize: 20),
+          Expanded(
+            child: ListTile(
+              leading: Icon(Icons.person, size: 60),
+              title: Padding(
+                padding: EdgeInsets.only(top: 10, bottom: 10),
+                child: Text(
+                  user["user"],
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
-            ),
-            subtitle: Padding(
-              padding: EdgeInsets.only(bottom: 10),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    user['phone'],
-                    style: TextStyle(fontSize: 18),
-                  ),
-                  Text(
-                    _diffDate(user['check-in']),
-                    style: TextStyle(fontSize: 18),
-                  )
-                ],
+              subtitle: Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      user['phone'],
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    Text(
+                      _diffDate(user['check-in']),
+                      style: TextStyle(fontSize: 18),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
+          Container(
+            margin: EdgeInsets.all(10),
+            child: Icon(
+              Icons.share,
+              color: Colors.grey,
+            ),
+          )
         ],
       ),
     );
