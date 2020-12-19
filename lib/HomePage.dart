@@ -65,9 +65,15 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _addData() {
+    int i = 0;
+
     for (Map user in listData) {
       if (!_setUser.contains(user)) {
         _setUser.add(user);
+        i++;
+        if (i == 5) {
+          break;
+        }
       }
     }
 
@@ -137,7 +143,7 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user['phone'] + "\n" + user['check-in'],
+                    user['phone'],
                     style: TextStyle(fontSize: 18),
                   ),
                   Text(

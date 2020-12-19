@@ -50,8 +50,8 @@ List<Map> listData = [
     "check-in": "2020-08-23 11:59:05"
   },
   {
-    "user": "test",
-    "phone": "016783239",
-    "check-in": "2020-12-19 14:54:05"
+    "user": "Tan Wei Di",
+    "phone": "0164328378",
+    "check-in": "2020-12-19 15:40:05"
   }
 ];
