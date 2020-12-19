@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import 'data.dart';
 
@@ -10,16 +12,62 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<String> items = ["1", "2", "3", "4", "5", "6", "7", "8"];
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
+  void _onRefresh() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use refreshFailed()
+    _getData();
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async {
+    // monitor network fetch
+    await Future.delayed(Duration(milliseconds: 1000));
+    // if failed,use loadFailed(),if no data return,use LoadNodata()
+    _addData();
+    if (_setUser.length == listData.length) {
+      _refreshController.loadNoData();
+    } else {
+      _refreshController.loadComplete();
+    }
+  }
+
+  Set<Map> _setUser = Set();
+
   @override
   void initState() {
     super.initState();
+    _getData();
+  }
 
-    Set<int> setOfInts = Set();
-
-    while(setOfInts.length!=5){
-      setOfInts.add(Random().nextInt(listData.length-1));
+  void _getData() {
+    Set<int> _setRandomIndex = Set();
+    while (_setRandomIndex.length != 5) {
+      _setRandomIndex.add(Random().nextInt(listData.length - 1));
     }
-    print(setOfInts);
+
+    _setUser.clear();
+
+    for (int index in _setRandomIndex) {
+      print(index);
+      _setUser.add(listData[index]);
+    }
+
+    setState(() {});
+  }
+
+  void _addData() {
+    _setUser.clear();
+
+    for (Map user in listData) {
+      _setUser.add(user);
+    }
+
+    setState(() {});
   }
 
   @override
@@ -28,11 +76,38 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text("Candidate Technical Assessment"),
       ),
-      body: ListView.builder(
-          itemCount: listData.length,
-          itemBuilder: (BuildContext context, int index) {
-            return _cardUser(listData[index]);
-          }),
+      body: SmartRefresher(
+          enablePullDown: true,
+          enablePullUp: true,
+          header: WaterDropHeader(),
+          footer: CustomFooter(
+            builder: (BuildContext context, LoadStatus mode) {
+              Widget body;
+              if (mode == LoadStatus.idle) {
+                body = Text("pull up load");
+              } else if (mode == LoadStatus.loading) {
+                body = CupertinoActivityIndicator();
+              } else if (mode == LoadStatus.failed) {
+                body = Text("Load Failed!Click retry!");
+              } else if (mode == LoadStatus.canLoading) {
+                body = Text("release to load more");
+              } else {
+                body = Text("No more Data");
+              }
+              return Container(
+                height: 55.0,
+                child: Center(child: body),
+              );
+            },
+          ),
+          controller: _refreshController,
+          onRefresh: _onRefresh,
+          onLoading: _onLoading,
+          child: ListView.builder(
+              itemCount: _setUser.length,
+              itemBuilder: (BuildContext context, int index) {
+                return _cardUser(_setUser.toList()[index]);
+              })),
     );
   }
 

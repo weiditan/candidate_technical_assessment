@@ -1,4 +1,4 @@
-#Candidate Technical Assessment
+# Candidate Technical Assessment
 
 In this technical assessment, you need to build a flutter application based
 on the storyline below.
