@@ -1,4 +1,3 @@
-import 'package:candidate_technical_assessment/data.dart';
 import 'package:flutter/material.dart';
 
 import 'HomePage.dart';
