@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:share/share.dart';
+import 'package:app_settings/app_settings.dart';
 
 import 'data.dart';
 
@@ -115,14 +116,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           icon: const Icon(Icons.notifications),
                           tooltip: 'Notifications',
                           onPressed: () {
-                            openAppSettings();
+                            AppSettings.openNotificationSettings();
                           },
                         )
                       : IconButton(
                           icon: const Icon(Icons.notifications_off),
                           tooltip: 'Notifications',
                           onPressed: () {
-                            openAppSettings();
+                            AppSettings.openNotificationSettings();
                           },
                         );
                 } else {

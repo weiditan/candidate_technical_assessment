@@ -26,6 +26,7 @@ dependencies:
   pull_to_refresh: ^1.6.3
   permission_handler: ^5.0.1+1
   share: ^0.6.5+4
+  app_settings: ^4.0.4
 
 
   # The following adds the Cupertino Icons font to your application.

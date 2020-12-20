@@ -23,6 +23,7 @@ installed applications on the mobile.
     1. pull_to_refresh: ^1.6.3
     1. permission_handler: ^5.0.1+1
     1. share: ^0.6.5+4
+    1. app_settings: ^4.0.4
 
 Time to complete = <b>1 week</b>
 
