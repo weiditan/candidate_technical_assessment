@@ -87,5 +87,5 @@ Time to complete = <b>1 week</b>
 
 #### Interface
 <img src="Output/Screenshot_20201220_213902_com.example.candidate_technical_assessment.jpg" width="24%"> <img src="Output/Screenshot_20201220_213916_com.example.candidate_technical_assessment.jpg" width="24%"> <img src="Output/Screenshot_20201220_213921_com.example.candidate_technical_assessment.jpg" width="24%"> <img src="Output/Screenshot_20201220_213929_com.example.candidate_technical_assessment.jpg" width="24%">
-<img src="Output/Screenshot_20201220_235943.jpg" width="24%"> <img src="Output/Screenshot_20201220_234313_com.android.settings.jpg" width="24%"> <img src="Output/Screenshot_20201220_234321_com.example.candidate_technical_assessment.jpg" width="24%">
+<br><br><img src="Output/Screenshot_20201220_235943.jpg" width="24%"> <img src="Output/Screenshot_20201220_234313_com.android.settings.jpg" width="24%"> <img src="Output/Screenshot_20201220_234321_com.example.candidate_technical_assessment.jpg" width="24%">
 
