@@ -20,10 +20,6 @@ installed applications on the mobile.
 2. Each completed storyline is a plus.
 3. Track progress of the project via Git version control system.
 4. List down all the plugins that you used to build the app.
-    1. pull_to_refresh: ^1.6.3
-    1. permission_handler: ^5.0.1+1
-    1. share: ^0.6.5+4
-    1. app_settings: ^4.0.4
 
 Time to complete = <b>1 week</b>
 
@@ -80,3 +76,21 @@ Time to complete = <b>1 week</b>
 "check-in": 2020-08-23 11:59:05
 }
 ````
+
+## Output
+
+#### Plugins used to build the app
+1. pull_to_refresh: ^1.6.3
+1. permission_handler: ^5.0.1+1
+1. share: ^0.6.5+4
+1. app_settings: ^4.0.4
+
+#### Interface
+<img src="Output/Screenshot_20201220_213902_com.example.candidate_technical_assessment.jpg" width="30%">
+<img src="Output/Screenshot_20201220_213916_com.example.candidate_technical_assessment.jpg" width="30%">
+<img src="Output/Screenshot_20201220_213921_com.example.candidate_technical_assessment.jpg" width="30%">
+<img src="Output/Screenshot_20201220_213929_com.example.candidate_technical_assessment.jpg" width="30%">
+<img src="Output/Screenshot_20201220_235943.jpg" width="30%">
+<img src="Output/Screenshot_20201220_234313_com.android.settings.jpg" width="30%">
+<img src="Output/Screenshot_20201220_234321_com.example.candidate_technical_assessment.jpg" width="30%">
+
