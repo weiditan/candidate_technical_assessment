@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:share/share.dart';
 
 import 'data.dart';
 
@@ -11,15 +13,9 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   Set<int> _setRandomIndex = Set();
   List<Map> _setUser = List();
-
-  @override
-  void initState() {
-    super.initState();
-    _getData();
-  }
 
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -80,11 +76,62 @@ class _HomePageState extends State<HomePage> {
     setState(() {});
   }
 
+  Future _notificationStatus() async {
+    return await Permission.notification.request().isGranted;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    _getData();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('$state');
+
+    if (state == AppLifecycleState.resumed) {
+      setState(() {});
+    }
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Candidate Technical Assessment"),
+        actions: <Widget>[
+          FutureBuilder(
+              future: _notificationStatus(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.hasData) {
+                  return (snapshot.data)
+                      ? IconButton(
+                          icon: const Icon(Icons.notifications),
+                          tooltip: 'Show Snackbar',
+                          onPressed: () {
+                            openAppSettings();
+                          },
+                        )
+                      : IconButton(
+                          icon: const Icon(Icons.notifications_off),
+                          tooltip: 'Show Snackbar',
+                          onPressed: () {
+                            openAppSettings();
+                          },
+                        );
+                } else {
+                  return Container();
+                }
+              }),
+        ],
       ),
       body: SmartRefresher(
           enablePullDown: true,
@@ -156,12 +203,17 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Container(
-            margin: EdgeInsets.all(10),
-            child: Icon(
-              Icons.share,
-              color: Colors.grey,
-            ),
-          )
+              margin: EdgeInsets.all(10),
+              child: IconButton(
+                icon: Icon(
+                  Icons.share,
+                  color: Colors.grey,
+                ),
+                tooltip: 'Share',
+                onPressed: () {
+                  Share.share(user["user"] + "\n" + user['phone']);
+                },
+              ))
         ],
       ),
     );
