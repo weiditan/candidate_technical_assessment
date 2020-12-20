@@ -20,6 +20,9 @@ installed applications on the mobile.
 2. Each completed storyline is a plus.
 3. Track progress of the project via Git version control system.
 4. List down all the plugins that you used to build the app.
+    1. pull_to_refresh: ^1.6.3
+    1. permission_handler: ^5.0.1+1
+    1. share: ^0.6.5+4
 
 Time to complete = <b>1 week</b>
 
