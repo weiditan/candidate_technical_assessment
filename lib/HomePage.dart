@@ -89,8 +89,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    print('$state');
-
     if (state == AppLifecycleState.resumed) {
       setState(() {});
     }
@@ -115,14 +113,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   return (snapshot.data)
                       ? IconButton(
                           icon: const Icon(Icons.notifications),
-                          tooltip: 'Show Snackbar',
+                          tooltip: 'Notifications',
                           onPressed: () {
                             openAppSettings();
                           },
                         )
                       : IconButton(
                           icon: const Icon(Icons.notifications_off),
-                          tooltip: 'Show Snackbar',
+                          tooltip: 'Notifications',
                           onPressed: () {
                             openAppSettings();
                           },
